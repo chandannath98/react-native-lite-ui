@@ -13,6 +13,10 @@ npm install react-native-lite-ui
 
 First, wrap your app with the `ThemeProvider` and provide initial values for the theme:
 
+### Setting Up Theme
+
+Wrap your app with the `ThemeProvider` and provide initial values for colors, font sizes, and fonts. The `ThemeProvider` supports both light and dark themes as well as a system-based mode.
+
 ```tsx
 import React from 'react';
 import { ThemeProvider } from 'react-native-lite-ui';
@@ -21,14 +25,36 @@ const App = () => {
   const theme = {
     colors: {
       primary: '#6200EE',
-      buttonColor: '#03DAC6',
-      textColor: '#000',
+      secondary: '#03DAC6',
+      backgroundColor: '#FFFFFF',
+      buttonColor: '#6200EE',
+      textColor: '#000000',
+      disabledColor: '#A9A9A9',
+    },
+    themesColors: {
+      light: {
+        primary: '#6200EE',
+        backgroundColor: '#FFFFFF',
+        textColor: '#000',
+        buttonColor: '#03DAC6',
+        disabledColor: '#A9A9A9',
+      },
+      dark: {
+        primary: '#BB86FC',
+        backgroundColor: '#121212',
+        textColor: '#FFFFFF',
+        buttonColor: '#03DAC6',
+        disabledColor: '#444444',
+      },
     },
     fontSizes: {
       medium: 16,
+      large: 18,
+      extraLarge: 24,
+      small: 12,
     },
     fonts: {
-      regular: 'System',
+      regular: 'System-Regular',
       medium: 'System-Medium',
       bold: 'System-Bold',
     },
@@ -43,6 +69,91 @@ const App = () => {
 
 export default App;
 ```
+
+### Switching Themes
+
+You can switch themes dynamically using the `useTheme` hook:
+
+```tsx
+import React from 'react';
+import { Button, useTheme } from 'react-native-lite-ui';
+
+const ThemeSwitcher = () => {
+  const { themeMode, setThemeMode } = useTheme();
+
+  return (
+    <Button
+      title={`Switch to ${themeMode === 'dark' ? 'Light' : 'Dark'} Mode`}
+      onPress={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')}
+    />
+  );
+};
+```
+
+---
+
+
+### Theming Details
+
+The `ThemeProvider` allows you to define themes for light and dark modes as well as system-based preferences. It also provides additional customization options for font sizes and font families.
+
+#### Available Properties
+
+- **Colors**:
+  - `primary`
+  - `secondary`
+  - `backgroundColor`
+  - `buttonColor`
+  - `textColor`
+  - `disabledColor`
+  - `primary2`, `primary3`, `secondary2`, `secondary3`
+  - `backgroundColor2`, `backgroundColor3`
+
+- **Font Sizes**:
+  - `medium`, `large`, `extraLarge`, `small`, `extraSmall`
+
+- **Fonts**:
+  - `regular`, `medium`, `bold`
+
+- **Theme Modes**:
+  - `'light'`, `'dark'`, `'system'`
+
+#### Example
+
+```tsx
+const theme = {
+  colors: {
+    primary: '#6200EE',
+    secondary: '#03DAC6',
+    backgroundColor: '#FFFFFF',
+    textColor: '#000000',
+    disabledColor: '#A9A9A9',
+  },
+  themesColors: {
+    light: {
+      primary: '#6200EE',
+      backgroundColor: '#FFFFFF',
+      textColor: '#000',
+    },
+    dark: {
+      primary: '#BB86FC',
+      backgroundColor: '#121212',
+      textColor: '#FFFFFF',
+    },
+  },
+  fontSizes: {
+    medium: 16,
+    large: 18,
+    extraLarge: 24,
+  },
+  fonts: {
+    regular: 'System-Regular',
+    medium: 'System-Medium',
+    bold: 'System-Bold',
+  },
+};
+```
+
 
 ### Button
 

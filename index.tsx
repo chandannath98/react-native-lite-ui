@@ -12,3 +12,4 @@ export {default as ToastDuration} from './src/Toast/ToastTypesAndValues/ToastDur
 export {default as Divider} from './src/Divider/Divider';
 export {default as Switch} from './src/Switch/Switch';
 export {default as Slider} from './src/Slider/Slider';
+export {default as ScreenWrapper} from './src/ScreenWrapper'
