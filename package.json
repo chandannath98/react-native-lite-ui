@@ -1,0 +1,21 @@
+{
+  "name": "react-native-lite-ui",
+  "version": "1.0.7",
+  "description": "Custom UI components for react-native ",
+  "main": "index.tsx",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "react-native",
+    "Button",
+    "Chip",
+    "TextInput",
+    "Text"
+  ],
+  "author": "chandan nath",
+  "license": "ISC",
+  "dependencies": {
+    "react-native-lite-ui": "^1.0.0"
+  }
+}
