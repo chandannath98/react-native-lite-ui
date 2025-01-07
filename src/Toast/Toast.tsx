@@ -56,10 +56,11 @@ function getRef() {
 }
 Toast.show = (params:{
   type: "info" | "success" | "warning" | "error" 
-  heading: string,
+  heading?: string,
   message: string,
-  duration?: ToastDuration,
+  duration?: ToastDuration|number,
   onDismiss?: () => void,
+  position?: "top"|"bottom"
 
 }) => {
   console.log("first messageeeeeeeeee")

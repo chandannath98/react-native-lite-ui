@@ -1,6 +1,6 @@
 import React, {FC} from 'react';
 import {Text, TextProps, TextStyle} from 'react-native';
-import {useTheme} from './ThemeContext';
+import {useTheme} from './ThemeContext.tsx';
 import {fontSizes} from "./constants/fontsizes.tsx"
 
 

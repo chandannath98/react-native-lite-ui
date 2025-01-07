@@ -8,23 +8,23 @@ import {
   BackHandler,
 } from 'react-native';
 import {DialogProps} from './types/types.tsx';
-import {useTheme} from '../ThemeContext';
+import {useTheme} from '../ThemeContext.tsx';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { Button, Text } from '../..';
+import {Button, Text} from '../../index.tsx';
 
 const DialogModal = React.forwardRef((props, ref) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [alertDetails, setDialogDetails] = useState<DialogProps>({
     heading: '',
     message: '',
-    cancelButtonVisible:false,
-    onAccept: ()=>{},
-    onCancel: ()=>{},
-    closeOnBackPress:true,
+    cancelButtonVisible: false,
+    onAccept: () => {},
+    onCancel: () => {},
+    closeOnBackPress: true,
   });
-  
+
   const theme = useTheme();
 
   function showDialog(params: DialogProps) {
@@ -52,11 +52,6 @@ const DialogModal = React.forwardRef((props, ref) => {
     ),
   );
 
-
- 
-
-
-
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -64,48 +59,75 @@ const DialogModal = React.forwardRef((props, ref) => {
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          setModalVisible(alertDetails?.closeOnBackPress?false:true);
+          setModalVisible(alertDetails?.closeOnBackPress ? false : true);
         }}>
-        <View style={[styles.centeredView,{backgroundColor:theme.colorMode=="dark"?"rgba(210, 210, 210, 0.3)":"rgba( 0, 0, 0, 0.08)"}]}>
-          <View style={[styles.modalView,{backgroundColor:theme.colorMode=="dark"?"#121212": theme.colors.backgroundColor}]}>
+        <View
+          style={[
+            styles.centeredView,
+            {
+              backgroundColor:
+                theme.colorMode == 'dark'
+                  ? 'rgba(210, 210, 210, 0.3)'
+                  : 'rgba( 0, 0, 0, 0.08)',
+            },
+          ]}>
+          <View
+            style={[
+              styles.modalView,
+              {
+                backgroundColor:
+                  theme.colorMode == 'dark'
+                    ? '#121212'
+                    : theme.colors.backgroundColor,
+              },
+            ]}>
             <View
-            
+
             // style={{position: 'absolute', top: -25}}
-            
-            >
-              
-            </View>
-            <Text
-            
-            mode="medium" fontSize='extraLarge'
-            
-           >{alertDetails?.heading}</Text>
-
+            ></View>
+            <Text mode="medium" fontSize="extraLarge">
+              {alertDetails?.heading}
+            </Text>
 
             <Text
-            
-            mode="regular" fontSize='medium'
-            
-            style={{ color: theme.colors?.textColor}}>{alertDetails?.message}</Text>
+              mode="regular"
+              fontSize="medium"
+              style={{color: theme.colors?.textColor}}>
+              {alertDetails?.message}
+            </Text>
 
-            <View 
-            style={{flexDirection:"row",gap:10}}>
+            <View style={{flexDirection: 'row', gap: 10}}>
+              <Button
+                radius="xl"
+                title="OK"
+                type="text"
+                onPress={()=>{
+                  
+                  if(alertDetails?.onAccept){
+                    alertDetails?.onAccept()
 
-                <Button
-                radius='xl'
-                title='OK'
-                type='text'
-                onPress={alertDetails?.onAccept||hideDialog}
-                />
-               
-                <Button
-                radius='xl'
+                  }
+                  hideDialog()
+                
+                
+                }}
+              />
 
-                title='Cancel'
-                type='text'
-                onPress={alertDetails.onCancel|| hideDialog}
-                />
+              <Button
+                radius="xl"
+                title="Cancel"
+                type="text"
+                onPress={()=>{
+                  
+                  if(alertDetails?.onCancel){
+                    alertDetails?.onCancel()
 
+                  }
+                  hideDialog()
+                
+                
+                }}
+              />
             </View>
           </View>
         </View>
@@ -123,12 +145,12 @@ const styles = StyleSheet.create({
     // marginTop: 22,
   },
   modalView: {
-    gap:15,
+    gap: 15,
     // margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 5,
-    paddingHorizontal:20,
+    paddingHorizontal: 20,
     // alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {

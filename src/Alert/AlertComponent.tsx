@@ -63,7 +63,7 @@ const AlertModal = React.forwardRef((props, ref) => {
   return (
     <View style={styles.centeredView}>
       <Modal
-        animationType="slide"
+        animationType="fade"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
@@ -111,7 +111,16 @@ const AlertModal = React.forwardRef((props, ref) => {
                 radius='xl'
                 title='OK'
                 type='contained'
-                onPress={alertDetails?.onAccept||hideAlert}
+                onPress={()=>{
+                  
+                  if(alertDetails?.onAccept){
+                    alertDetails?.onAccept()
+
+                  }
+                  hideAlert()
+                
+                
+                }}
                 />
                 {alertDetails?.cancelButtonVisible&&
                 <Button
@@ -119,7 +128,16 @@ const AlertModal = React.forwardRef((props, ref) => {
 
                 title='Cancel'
                 type='outline'
-                onPress={alertDetails.onCancel|| hideAlert}
+                onPress={()=>{
+                  
+                  if(alertDetails?.onCancel){
+                    alertDetails?.onCancel()
+
+                  }
+                  hideAlert()
+                
+                
+                }}
                 />
 }
             </View>

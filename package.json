@@ -1,6 +1,6 @@
 {
   "name": "react-native-lite-ui",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Custom UI components for react-native",
   "main": "index.tsx",
   "scripts": {
