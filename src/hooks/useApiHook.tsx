@@ -187,4 +187,4 @@ const useApiHook = ({
   return {...state, fetchData,alterData,loading};
 };
 
-export default useApiHook;
+// export default useApiHook;

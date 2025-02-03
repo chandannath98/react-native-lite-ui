@@ -1,143 +1,168 @@
-import React, { useState, useRef } from 'react';
-import { Animated, PanResponder, View, StyleSheet, Text } from 'react-native';
+import React, {useState} from 'react';
+import {Button, StyleSheet, TextInput, View} from 'react-native';
+import {PanGestureHandler} from 'react-native-gesture-handler';
+import Animated, {
+  measure,
+  runOnJS,
+  runOnUI,
+  useAnimatedGestureHandler,
+  useAnimatedProps,
+  useAnimatedRef,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
+const size = 40;
 
-interface CustomSliderProps {
-  minValue?: number;
-  maxValue?: number;
-  initialValue?: number;
-  trackColor?: string;
-  thumbColor?: string;
-  trackHeight?: number;
-  thumbSize?: number;
-  onValueChange?: (value: number) => void;
-}
+const AnimatedTextInput = Animated.createAnimatedComponent(TextInput);
+Animated.addWhitelistedNativeProps({text: true});
 
-const CustomSlider: React.FC<CustomSliderProps> = ({
-  minValue = 0,
-  maxValue = 100,
-  initialValue = 0,
-  trackColor = '#ddd',
-  thumbColor = '#007AFF',
-  trackHeight = 6,
-  thumbSize = 20,
-  onValueChange
-}) => {
-  const [sliderWidth, setSliderWidth] = useState(0);
-  const animatedValue = useRef(new Animated.Value((initialValue - minValue) / (maxValue - minValue))).current;
+const springConfig = () => {
+  'worklet';
+  return {
+    stiffness: 1000,
+    damping: 500,
+    mass: 2,
+    overshootClamping: true,
+    restDisplacementThreshold: 0.01,
+    restSpeedThreshold: 0.01,
+  };
+};
 
-  // Convert animation value to actual slider value
-  const currentSliderValue = animatedValue.interpolate({
-    inputRange: [0, 1],
-    outputRange: [minValue, maxValue],
+function Slider({initialvalue, animationEnabled, onProgress}) {
+  const layoutDetails = useSharedValue();
+  const animation = useSharedValue(0);
+  const progress = useSharedValue(initialvalue.toString());
+  const aRef = useAnimatedRef();
+
+  //=========== get bar width and other layout information =========== start
+  const onLayoutBar = () => {
+    runOnUI(getLayoutDetails)();
+  };
+  const getLayoutDetails = () => {
+    'worklet';
+    layoutDetails.value = measure(aRef);
+    animation.value = ((layoutDetails.value.width - size) / 100) * initialvalue;
+  };
+  //=========== get bar width and other layout information =========== end
+
+  // =========== same logic is written inside onStart and onActive events ===========
+  const eventHandler = useAnimatedGestureHandler({
+    onStart: event => {
+      const newVal = Math.max(
+        0,
+        Math.min(
+          event.absoluteX - size / 2 - layoutDetails.value.pageX,
+          layoutDetails.value.width - size,
+        ),
+      );
+      // animation.value = animationEnabled
+      //   ? withSpring(newVal, springConfig())
+      //   : newVal;
+    },
+    onActive: event => {
+      const newVal = Math.max(
+        0,
+        Math.min(
+          event.absoluteX - size / 2 - layoutDetails.value.pageX,
+          layoutDetails.value.width - size,
+        ),
+      );
+      // animation.value = animationEnabled
+      //   ? withSpring(newVal, springConfig())
+      //   : newVal;
+    },
   });
 
-  // Respond to touch events on the slider
-  const panResponder = useRef(
-    PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onMoveShouldSetPanResponder: () => true,
-      onPanResponderGrant: () => {
-        animatedValue.stopAnimation();
-      },
-      onPanResponderMove: (evt, gestureState) => {
-        const newValue = Math.min(Math.max(gestureState.dx, 0), sliderWidth);
-        animatedValue.setValue(newValue / sliderWidth);
-      },
-      onPanResponderRelease: () => {
-        animatedValue.flattenOffset();
-        if (onValueChange) {
-          animatedValue.addListener(({ value }) => {
-            const sliderVal = minValue + value * (maxValue - minValue);
-            onValueChange(Math.round(sliderVal));
-          });
-        }
-      },
-    })
-  ).current;
+  // =========== translate styles and also the progress value calcuated here ===========
+  const _style = useAnimatedStyle(() => {
+    if (layoutDetails.value) {
+      const newProgress = Math.round(
+        (animation.value / (layoutDetails.value.width - size)) * 100,
+      ).toString();
+      if (newProgress !== progress.value) {
+        progress.value = newProgress;
+        runOnJS(onProgress)(progress.value);
+      }
+    }
+    return {
+      transform: [{translateX: animation.value}],
+    };
+  });
+
+  const animatedProps = useAnimatedProps(() => {
+    return {
+      text: progress.value,
+    };
+  });
 
   return (
-    <View
-      style={styles.container}
-      onLayout={(event) => setSliderWidth(event.nativeEvent.layout.width)}
-    >
-      <View
-        style={[
-          styles.track,
-          { backgroundColor: trackColor, height: trackHeight },
-        ]}
+    <PanGestureHandler onGestureEvent={eventHandler}>
+      <Animated.View style={[styles.bar]} ref={aRef} onLayout={onLayoutBar}>
+        <Animated.View style={[styles.moveRightBar, _style]} />
+        <Animated.View style={[styles.dot, _style]}>
+          <View pointerEvents="none">
+            <AnimatedTextInput
+              style={styles.txt}
+              defaultValue={initialvalue.toString()}
+              editable={false}
+              {...{animatedProps}}
+            />
+          </View>
+        </Animated.View>
+      </Animated.View>
+    </PanGestureHandler>
+  );
+}
+
+  function SliderReanimated() {
+  const [animationEnabled, setAnimationEnabled] = useState(true);
+  return (
+    <View style={styles.container}>
+      <Button
+        title={'Animation: ' + (animationEnabled ? 'on' : 'off')}
+        onPress={() => setAnimationEnabled(val => !val)}
       />
-      <Animated.View
-        style={[
-          styles.fillTrack,
-          {
-            backgroundColor: thumbColor,
-            width: animatedValue.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, sliderWidth],
-            }),
-            height: trackHeight,
-          },
-        ]}
+      <Slider
+        initialvalue={50}
+        animationEnabled={animationEnabled}
+        onProgress={val => console.log(val)}
       />
-      <Animated.View
-        {...panResponder.panHandlers}
-        style={[
-          styles.thumb,
-          {
-            backgroundColor: thumbColor,
-            width: thumbSize,
-            height: thumbSize,
-            borderRadius: thumbSize / 2,
-            transform: [
-              {
-                translateX: animatedValue.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, sliderWidth - thumbSize],
-                }),
-              },
-            ],
-          },
-        ]}
-      />
-      <Text style={styles.sliderValue}>
-        {currentSliderValue.__getValue().toFixed(0)}
-      </Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 1,
+    paddingHorizontal: 20,
+    justifyContent: 'space-evenly',
+  },
+  bar: {
     width: '100%',
-    height: 40,
+    backgroundColor: 'lightgreen',
+    borderRadius: size,
+    overflow: 'hidden',
   },
-  track: {
+  dot: {
+    height: size,
+    width: size,
+    borderRadius: size,
+    backgroundColor: 'green',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  txt: {
+    fontSize: 10,
+    color: '#fff',
+    padding: 0,
+    textAlign: 'center',
+  },
+  moveRightBar: {
+    height: '100%',
+    width: '100%',
+    backgroundColor: '#eee',
     position: 'absolute',
-    left: 0,
-    right: 0,
-    borderRadius: 3,
-  },
-  fillTrack: {
-    position: 'absolute',
-    left: 0,
-    borderRadius: 3,
-  },
-  thumb: {
-    position: 'absolute',
-    top: -7,
-    borderWidth: 2,
-    borderColor: '#fff',
-    shadowColor: '#000',
-    shadowOpacity: 0.2,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 2,
-  },
-  sliderValue: {
-    marginTop: 10,
-    fontSize: 14,
+    marginLeft: size / 2,
   },
 });
-
-export default CustomSlider;
