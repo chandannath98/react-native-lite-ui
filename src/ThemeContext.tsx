@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 type ThemeMode = 'light' | 'dark' | 'system';
 
-interface ThemeContextProps {
+export interface ThemeInitialValues {
   colors: {
     primary: string;
     secondary?: string;
@@ -65,16 +65,22 @@ interface ThemeContextProps {
     bold?: string;
     medium?: string;
   };
+  
+  colorMode?:'light'|'dark'
+}
+
+interface ThemeContextProps extends ThemeInitialValues {
   themeMode: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
-  colorMode:string
 }
+
+
 
 const ThemeContext = createContext<ThemeContextProps | undefined>(undefined);
 
 interface ThemeProviderProps {
   children: ReactNode;
-  initialValues: Omit<ThemeContextProps, 'themeMode' | 'setThemeMode'>;
+  initialValues: Omit<ThemeInitialValues, 'themeMode' | 'setThemeMode'>;
 }
 
 const THEME_KEY = 'theme_preference';
@@ -83,9 +89,18 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, initialV
   const systemTheme = useColorScheme();
   const [themeMode, setThemeMode] = useState<ThemeMode>('system');
   const [colors, setColors] = useState(initialValues.colors);
-  const [fontSizes, setFontSizes] = useState(initialValues.fontSizes);
-  const [fonts, setFonts] = useState(initialValues.fonts);
-  const [colorMode, setColorMode] = useState('light')
+  // const [fontSizes, setFontSizes] = useState(initialValues.fontSizes);
+  const fontSizes =initialValues.fontSizes;
+  // const [fonts, setFonts] = useState(initialValues.fonts);
+  const fonts =initialValues.fonts || {
+    extraSmall: 10,   // Very small text (e.g., captions, helper text)
+    small: 12,        // Small text (e.g., secondary labels)
+    medium: 14,       // Default text (e.g., body text)
+    large: 16,        // Slightly larger text (e.g., buttons, headlines)
+    extraLarge: 20,   // Important headings or subheadings
+    extraExtraLarge: 24, // Main headings or prominent text
+  }
+  const [colorMode, setColorMode] = useState<'dark'|"light">('light')
   useEffect(() => {
     const loadThemePreference = async () => {
       const storedTheme = await AsyncStorage.getItem(THEME_KEY);
