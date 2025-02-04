@@ -21,7 +21,7 @@ function removeOldRef(oldRef:any) {
     DialogRefs = DialogRefs.filter((r) => r.current !== oldRef);
 }
 export default function Dialog(props:any) {
-  console.log(props)
+  // console.log(props)
   const alertRef = useRef(null);
 
   const setRef = React.useCallback((ref:any) => {

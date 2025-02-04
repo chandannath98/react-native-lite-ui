@@ -20,8 +20,8 @@ const ToastComponent = React.forwardRef((props, ref) => {
  function showToast(params: ToastProps) {
    setToastDetails(params);
    setIsVisible(true);
-   console.log(toastDetails?.position === 'bottom',"///////////")
-   console.log(toastDetails,"///////////")
+  //  console.log(toastDetails?.position === 'bottom',"///////////")
+  //  console.log(toastDetails,"///////////")
     const targetTranslateY = params?.position === 'bottom' ? Dimensions.get('window').height - Dimensions.get('window').height*0.07 : 0; // Adjust target position
    translateY.setValue(params?.position === 'bottom' ? Dimensions.get('window').height : -100); // Set initial position
     Animated.timing(translateY, {
@@ -37,7 +37,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
   function hideToast(position?:string) {
    setIsVisible(false);
    setToastDetails(null)
-   console.log(toastDetails,".......................")
+  //  console.log(toastDetails,".......................")
    const hidePosition = position === 'bottom'
      ? Dimensions.get('window').height
      : -100; // Hide position dynamically based on the toast position
@@ -139,7 +139,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
 
 
      <View style={{ gap: 10 }}>
-     {toastDetails?.heading &&  <Text mode="bold" fontSize="large" style={{ color: toastDetails?.type === 'success' ? 'green' : toastDetails?.type === 'error' ? 'red' : toastDetails?.type === 'warning' ? 'orange' : theme.colors?.primary }}>
+     {toastDetails?.heading &&  <Text mode="bold" fontSize="medium" style={{ color: toastDetails?.type === 'success' ? 'green' : toastDetails?.type === 'error' ? 'red' : toastDetails?.type === 'warning' ? 'orange' : theme.colors?.primary }}>
          {toastDetails?.heading}
        </Text>
 }

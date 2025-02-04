@@ -21,7 +21,7 @@ function removeOldRef(oldRef:any) {
   refs = refs.filter((r) => r.current !== oldRef);
 }
 export default function Alert(props:any) {
-  console.log(props)
+  // console.log(props)
   const alertRef = useRef(null);
 
   const setRef = React.useCallback((ref:any) => {

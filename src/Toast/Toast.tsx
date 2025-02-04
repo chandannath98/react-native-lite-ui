@@ -21,7 +21,7 @@ function removeOldRef(oldRef:any) {
   refs = refs.filter((r) => r.current !== oldRef);
 }
 export default function Toast(props:any) {
-  console.log(props)
+  // console.log(props)
   const toastRef = useRef(null);
 
   const setRef = React.useCallback((ref:any) => {
@@ -63,7 +63,7 @@ Toast.show = (params:{
   position?: "top"|"bottom"
 
 }) => {
-  console.log("first messageeeeeeeeee")
+  // console.log("first messageeeeeeeeee")
   getRef()?.show(params);
 };
 Toast.hide = () => {

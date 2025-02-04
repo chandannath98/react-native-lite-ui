@@ -30,7 +30,7 @@ const AlertModal = React.forwardRef((props, ref) => {
   const theme = useTheme();
 
   function showAlert(params: AlertProps) {
-    console.log(params);
+    // console.log(params);
     setAlertDetails(params);
     setModalVisible(true);
   }
@@ -90,16 +90,19 @@ const AlertModal = React.forwardRef((props, ref) => {
                 <Entypo name="warning" size={60} color={'orange'} />
               )}
             </View>
+
+            {alertDetails?.heading &&
             <Text
             
-            mode='bold' fontSize='extraLarge'
+            mode='bold' fontSize='medium'
             
             style={{ color: alertDetails?.type=="success"? 'green':alertDetails?.type=="error"?"red":alertDetails?.type=="warning"?"orange": theme.colors?.primary}}>{alertDetails?.heading}</Text>
+}
 
 
             <Text
             
-            mode='medium' fontSize='medium'
+            mode='regular' fontSize='medium'
             
             style={{ color: theme.colors?.textColor}}>{alertDetails?.message}</Text>
 
@@ -157,7 +160,7 @@ const styles = StyleSheet.create({
     // marginTop: 22,
   },
   modalView: {
-    gap:20,
+    gap:15,
     margin: 20,
     backgroundColor: 'white',
     borderRadius: 20,

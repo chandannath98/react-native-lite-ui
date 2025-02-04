@@ -85,9 +85,11 @@ const DialogModal = React.forwardRef((props, ref) => {
 
             // style={{position: 'absolute', top: -25}}
             ></View>
-            <Text mode="medium" fontSize="extraLarge">
+              {alertDetails?.heading &&
+            <Text mode="bold" fontSize='medium'>
               {alertDetails?.heading}
             </Text>
+}
 
             <Text
               mode="regular"
