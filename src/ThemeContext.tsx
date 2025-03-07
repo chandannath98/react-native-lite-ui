@@ -18,7 +18,8 @@ export interface ThemeInitialValues {
     secondary3?: string;
     backgroundColor2?: string;
     backgroundColor3?: string;
-    disabledColor?:string
+    disabledColor?:string;
+    errorColor?:string
   };
   themesColors?: {
     light: {
@@ -34,7 +35,9 @@ export interface ThemeInitialValues {
       secondary2?:string,
       secondary3?:string,
       backgroundColor2?:string,
-      backgroundColor3?:string
+      backgroundColor3?:string,
+    errorColor?:string
+
     };
     dark: {
       primary: string;
@@ -49,7 +52,9 @@ export interface ThemeInitialValues {
       secondary2?:string,
       secondary3?:string,
       backgroundColor2?:string,
-      backgroundColor3?:string
+      backgroundColor3?:string;
+    errorColor?:string
+
     };
   };
   fontSizes: {
@@ -126,7 +131,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, initialV
 
   const applyColors = (mode: 'light' | 'dark') => {
     setColorMode(mode)
-    setColors(initialValues.themesColors ? initialValues.themesColors[mode] : initialValues.colors);
+    setColors(initialValues.themesColors ? {...initialValues.colors, ...initialValues.themesColors[mode]} :  initialValues.colors);
   };
 
   useEffect(() => {

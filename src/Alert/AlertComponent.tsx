@@ -101,10 +101,11 @@ const AlertModal = React.forwardRef((props, ref) => {
 
 
             <Text
+            colored
             
             mode='regular' fontSize='medium'
             
-            style={{ color: theme.colors?.textColor}}>{alertDetails?.message}</Text>
+            style={{ color: 'black'}}>{alertDetails?.message}</Text>
 
             <View 
             style={{flexDirection:"row",gap:20}}>

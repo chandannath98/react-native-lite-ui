@@ -1,18 +1,27 @@
 import React, {FC} from 'react';
-import {TextInput, StyleSheet, TextInputProps, TextStyle} from 'react-native';
+import {TextInput, StyleSheet, TextInputProps, TextStyle,View, ColorValue} from 'react-native';
 import {useTheme} from './ThemeContext';
 import useFont from './hooks/useFont';
+import { Text } from '..';
 
 interface CustomTextInputProps extends TextInputProps {
   style?: TextStyle;
   fontWeight?: 'medium' | 'bold' | 'regular';
   disabled?: boolean;
+  isError?:boolean;
+  errorMessage?:String;
+  gapBetweenErrorMessage?:string | number | undefined;
+  errorColor?:ColorValue;
 }
 
 const CustomTextInput: FC<CustomTextInputProps> = ({
   style,
   disabled,
   fontWeight = 'regular',
+  isError,
+  gapBetweenErrorMessage,
+  errorMessage,
+  errorColor,
   ...props
 }) => {
   const theme = useTheme();
@@ -20,14 +29,17 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
   const fontWeightStyle = fonts[fontWeight];
 
   return (
+    <View style={{gap:gapBetweenErrorMessage||2 ,}}>
     <TextInput
       style={[
         styles.input,
         {
           color: theme.colors?.textColor,
-          borderColor: '#E7E8E9',
+          borderColor:isError? (errorColor || "red"): '#E7E8E9',
           fontFamily: fontWeightStyle,
-          fontSize:theme.fontSizes?.medium
+          fontSize:theme.fontSizes?.medium,
+          borderWidth:isError?1:0,
+      
         },
         !fonts.bold && {fontWeight: fontWeight},
         disabled && {backgroundColor:theme?.colors.disabledColor || "#E7E8E9"},
@@ -36,6 +48,8 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
       placeholderTextColor={'#d4d4d4'}
       {...props}
     />
+  {isError &&  <Text style={{color:errorColor ||"red"}} >{errorMessage || "Invalid"}</Text>}
+    </View>
   );
 };
 
