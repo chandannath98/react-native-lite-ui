@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, ReactNode } from 'react';
 import { TouchableOpacity,  StyleSheet, TextStyle, ViewStyle, TouchableOpacityProps, ViewProps, View } from 'react-native';
 import { useTheme } from './ThemeContext';
 import { Text } from '..';
@@ -9,10 +9,12 @@ interface CustomChipProps extends ViewProps {
   textStyle?: TextStyle;
   type?: 'contained'|"outline"|"text"; // Add more types if needed
   radius?: 'xl'|'l'|"m"|"s"
-  color?:string
+  color?:string;
+  icon?:ReactNode;
+  gap?:number
 }
 
-const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='xl',textStyle,color,...props }) => {
+const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='xl',textStyle,color,icon,gap,...props }) => {
   const theme = useTheme();
   const btnColor=color ||theme.colors?.buttonColor||theme.colors?.primary
 
@@ -24,7 +26,11 @@ const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='
         backgroundColor: type=="contained"? btnColor:'none',
         borderWidth:1,
         borderColor: type=="outline"? btnColor:type=="contained"? btnColor:'none',
-        borderRadius: radius=="xl"?50:radius=="l"?15:radius=="m"?10:radius=="s"?5:5
+        borderRadius: radius=="xl"?50:radius=="l"?15:radius=="m"?10:radius=="s"?5:5,
+        flexDirection:"row",
+        alignItems:"center",
+        gap: icon?(gap||3):0,
+        alignSelf:"flex-start"
       
       
       }, style]}
@@ -35,6 +41,8 @@ const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='
       
       
       >{title}</Text>
+
+      {icon}
     </View>
   );
 };

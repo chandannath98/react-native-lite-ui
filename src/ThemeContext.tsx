@@ -64,6 +64,7 @@ export interface ThemeInitialValues {
     extraExtraLarge?: number;
     small?: number;
     extraSmall?: number;
+    extraExtraSmall?:number;
   };
   fonts: {
     regular?: string;

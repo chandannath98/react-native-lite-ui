@@ -1,12 +1,14 @@
 
 # Custom UI Components with Theming
 
-This package provides customizable and themable React Native components including Buttons, Chips, Text, and TextInput. All components are designed to work seamlessly with a theme context to provide a consistent UI experience.
+This package provides customizable and themable React Native components all synced with same fonts of your choice so you don's have to set fonts individually at every place, package including Buttons, Chips, Text, and TextInput, Toast, Alert. All components are designed to work seamlessly with a theme context to provide a consistent UI experience.
 
 ## Installation
 
 ```bash
 npm install react-native-lite-ui
+npm install @react-native-async-storage/async-storage
+npm install react-native-vector-icons
 ```
 
 ## Usage
@@ -19,73 +21,97 @@ Wrap your app with the `ThemeProvider` and provide initial values for colors, fo
 
 ```tsx
 import React from 'react';
-import { ThemeProvider } from 'react-native-lite-ui';
+import { ThemeProvider,ThemeInitialValues } from 'react-native-lite-ui';
 
 const App = () => {
-  const theme = {
-    colors: {
-      primary: '#6200EE',
-      secondary: '#03DAC6',
-      backgroundColor: '#FFFFFF',
-      buttonColor: '#6200EE',
-      textColor: '#000000',
-      disabledColor: '#A9A9A9',
+  const theme:ThemeInitialValues = {
+   secondary2: "#018786",
+    secondary3: "#03dac4",
+    backgroundColor2: "#f5f5f5",
+    backgroundColor3: "#e0e0e0",
+    disabledColor: "#bdbdbd",
+    errorColor: "#cf6679",
+  },
+  themesColors: {
+    light: {
+      primary: "#6200ea",
+      secondary: "#03dac6",
+      backgroundColor: "#ffffff",
+      buttonColor: "#6200ea",
+      textColor: "#000000",
+      disabledColor: "#bdbdbd",
+      primary2: "#3700b3",
+      primary3: "#bb86fc",
+      secondary2: "#018786",
+      secondary3: "#03dac4",
+      backgroundColor2: "#f5f5f5",
+      backgroundColor3: "#e0e0e0",
+      errorColor: "#cf6679",
     },
-    themesColors: {
-      light: {
-        primary: '#6200EE',
-        backgroundColor: '#FFFFFF',
-        textColor: '#000',
-        buttonColor: '#03DAC6',
-        disabledColor: '#A9A9A9',
-      },
-      dark: {
-        primary: '#BB86FC',
-        backgroundColor: '#121212',
-        textColor: '#FFFFFF',
-        buttonColor: '#03DAC6',
-        disabledColor: '#444444',
-      },
+    dark: {
+      primary: "#bb86fc",
+      secondary: "#03dac6",
+      backgroundColor: "#121212",
+      buttonColor: "#bb86fc",
+      textColor: "#ffffff",
+      disabledColor: "#757575",
+      primary2: "#3700b3",
+      primary3: "#6200ea",
+      secondary2: "#018786",
+      secondary3: "#03dac4",
+      backgroundColor2: "#1e1e1e",
+      backgroundColor3: "#2a2a2a",
+      errorColor: "#cf6679",
     },
-    fontSizes: {
-      medium: 16,
-      large: 18,
-      extraLarge: 24,
-      small: 12,
-    },
-    fonts: {
-      regular: 'System-Regular',
-      medium: 'System-Medium',
-      bold: 'System-Bold',
-    },
+  },
+  fontSizes: {
+    small: 12,
+    medium: 14,
+    large: 16,
+    extraLarge: 18,
+    extraExtraLarge: 22,
+    extraSmall: 10,
+    extraExtraSmall: 8,
+  },
+  fonts: {
+    regular: "Roboto-Regular",
+    bold: "Roboto-Bold",
+    medium: "Roboto-Medium",
+  },
+  colorMode: "light",
   };
 
   return (
     <ThemeProvider initialValues={theme}>
       {/* Your app code */}
     </ThemeProvider>
-  );
-};
+  )
+
+
+}
+
 
 export default App;
 ```
 
 ### Switching Themes
 
-You can switch themes dynamically using the `useTheme` hook:
+You can switch themes dynamically using the `useTheme,setThemeMode` hook, and get theme `colors` using colors of `useTheme`:
 
 ```tsx
 import React from 'react';
 import { Button, useTheme } from 'react-native-lite-ui';
 
 const ThemeSwitcher = () => {
-  const { themeMode, setThemeMode } = useTheme();
+  const { themeMode, setThemeMode,colors } = useTheme();
 
   return (
+    <View style={{backgroundColor:colors.backgroundColor}}>
     <Button
       title={`Switch to ${themeMode === 'dark' ? 'Light' : 'Dark'} Mode`}
       onPress={() => setThemeMode(themeMode === 'dark' ? 'light' : 'dark')}
     />
+    </View>
   );
 };
 ```
@@ -110,7 +136,7 @@ The `ThemeProvider` allows you to define themes for light and dark modes as well
   - `backgroundColor2`, `backgroundColor3`
 
 - **Font Sizes**:
-  - `medium`, `large`, `extraLarge`, `small`, `extraSmall`
+  - `medium`, `large`, `extraLarge`, `small`, `extraSmall`,`extraExtraSmall`
 
 - **Fonts**:
   - `regular`, `medium`, `bold`
@@ -122,35 +148,60 @@ The `ThemeProvider` allows you to define themes for light and dark modes as well
 
 ```tsx
 const theme = {
-  colors: {
-    primary: '#6200EE',
-    secondary: '#03DAC6',
-    backgroundColor: '#FFFFFF',
-    textColor: '#000000',
-    disabledColor: '#A9A9A9',
+   secondary2: "#018786",
+    secondary3: "#03dac4",
+    backgroundColor2: "#f5f5f5",
+    backgroundColor3: "#e0e0e0",
+    disabledColor: "#bdbdbd",
+    errorColor: "#cf6679",
   },
   themesColors: {
     light: {
-      primary: '#6200EE',
-      backgroundColor: '#FFFFFF',
-      textColor: '#000',
+      primary: "#6200ea",
+      secondary: "#03dac6",
+      backgroundColor: "#ffffff",
+      buttonColor: "#6200ea",
+      textColor: "#000000",
+      disabledColor: "#bdbdbd",
+      primary2: "#3700b3",
+      primary3: "#bb86fc",
+      secondary2: "#018786",
+      secondary3: "#03dac4",
+      backgroundColor2: "#f5f5f5",
+      backgroundColor3: "#e0e0e0",
+      errorColor: "#cf6679",
     },
     dark: {
-      primary: '#BB86FC',
-      backgroundColor: '#121212',
-      textColor: '#FFFFFF',
+      primary: "#bb86fc",
+      secondary: "#03dac6",
+      backgroundColor: "#121212",
+      buttonColor: "#bb86fc",
+      textColor: "#ffffff",
+      disabledColor: "#757575",
+      primary2: "#3700b3",
+      primary3: "#6200ea",
+      secondary2: "#018786",
+      secondary3: "#03dac4",
+      backgroundColor2: "#1e1e1e",
+      backgroundColor3: "#2a2a2a",
+      errorColor: "#cf6679",
     },
   },
   fontSizes: {
-    medium: 16,
-    large: 18,
-    extraLarge: 24,
+    small: 12,
+    medium: 14,
+    large: 16,
+    extraLarge: 18,
+    extraExtraLarge: 22,
+    extraSmall: 10,
+    extraExtraSmall: 8,
   },
   fonts: {
-    regular: 'System-Regular',
-    medium: 'System-Medium',
-    bold: 'System-Bold',
+    regular: "Roboto-Regular",
+    bold: "Roboto-Bold",
+    medium: "Roboto-Medium",
   },
+  colorMode: "light",
 };
 ```
 
@@ -169,6 +220,14 @@ A button component that supports multiple styles and theming.
 | `textStyle`| `TextStyle`                           | Custom style for the text inside the button.        | `undefined` |
 | `type`     | `'contained' , 'outline' , 'text'`       | Button style type.                                  | `contained` |
 | `radius`   | `'xl' , 'l' , 'm' , 's'`               | Border radius of the button.                        | `contained` |
+| `color`   | `string`               | Color of Button.                        | Themes default primary color |
+| `loading`   | `boolean`               | show loading indicator.                        | `false` |
+| `disabled`   | `boolean`               | To Disable button.                        | `false` |
+| `startComponent`   | `ReactNode`               | Component to show on the left of button.                        |  |
+| `tailingComponent`   | `ReactNode`               | Component to show on the right of button.                        |  |
+| `tailingICon`   | `ReactNode / string`               | Icon to show on the right of button.                        |  |
+| `tailingIconSize`   | `Number`               | Icon size.                        | `12` |
+| `tailingIconColor`   | `String`               | Icon size.                        | default theme color |
 
 #### Example
 
@@ -191,7 +250,9 @@ A chip component that supports multiple styles and theming.
 | `textStyle`| `TextStyle`                           | Custom style for the text inside the chip.          | `undefined` |
 | `type`     | `'contained' ,'outline' , 'text'`       | Chip style type.                                    | `contained` |
 | `radius`   | `'xl' , 'l' ,'m' , 's'`               | Border radius of the chip.                          | `xl`        |
-| `color`    | `string`                              | Custom color for the chip.                          | `theme.colors.primary` |
+| `color`    | `string`                              | Custom color for the chip.                          | themes primary color |
+| `icon`    | `ReactNode`                              | Icon on the right of chip.                          |  |
+| `gap`    | `Number`                              | Gap between Icon and Text.                          | `3` |
 
 #### Example
 
@@ -210,7 +271,7 @@ A customizable text component that supports multiple font styles and colors.
 | Prop       | Type                                  | Description                                         | Default     |
 |------------|---------------------------------------|-----------------------------------------------------|-------------|
 | `children` | `React.ReactNode`                     | The text content inside the component.              | `required`  |
-| `fontSize` | `'medium',"large","extraLarge","extraExtraLarge","small","extraSmall"`                     | Font Size.              | `medium`  |
+| `fontSize` | `'medium',"large","extraLarge","extraExtraLarge","small","extraSmall","extraExtraSmall"`                    | Font Size.              | `medium`  |
 | `style`    | `TextStyle ` | Custom style for the text.                          | `undefined` |
 | `mode`     | `'regular' , 'bold' , 'medium'`       | Font weight/style of the text.                      | `regular`   |
 | `colored`  | `boolean`                             | Whether to use the primary color from the theme.    | `false`     |
@@ -233,6 +294,11 @@ A customizable text input field with support for different font weights.
 |------------|---------------------------------------|-----------------------------------------------------|-------------|
 | `style`    | `TextStyle`                           | Custom style for the text input.                    | `undefined` |
 | `fontWeight`| `'regular' , 'bold' , 'medium'`       | Font weight of the text input.                      | `regular`   |
+| `disabled`| `boolean`       | Is disable input.                      | `false`   |
+| `isError`| `boolean`       | Error Condition in the case of true a error message will be shown on the bottom of input.                      | `false`   |
+| `errorMessage`| `String`       | Error message will be shown on the bottom of input.                      | `"Invalid Input"`   |
+| `gapBetweenErrorMessage`| `Number`       | Gap between textInput and error message.                      | `3`   |
+| `errorColor`| `String`       | Color of error message.                      | `"red"`   |
 
 #### Example
 
@@ -242,37 +308,7 @@ import { TextInput } from 'react-native-lite-ui';
 <TextInput placeholder="Type here" fontWeight="bold" />
 ```
 
-## Theming
 
-All components use the `useTheme` hook to apply colors, fonts, and styles from a theme. To change the appearance globally, provide custom values via the `ThemeProvider`.
-
-```tsx
-import { ThemeProvider } from 'react-native-lite-ui';
-
-const theme = {
-  colors: {
-    primary: '#6200EE',
-    textColor: '#000',
-  },
-   fontSizes:{
-      medium: 14,
-      large: 16,
-      extraLarge: 18,
-      extraExtraLarge: 50,
-      small:12,
-      extraSmall: 10
-  },
-  fonts: {
-    regular: 'System-Regular',
-    medium: 'System-Medium',
-    bold: 'System-Bold',
-  },
-};
-
-<ThemeProvider initialValues={theme}>
-  {/* Your app code */}
-</ThemeProvider>
-```
 
 ## License
 

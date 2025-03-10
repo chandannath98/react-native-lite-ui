@@ -9,7 +9,7 @@ interface CustomTextProps extends TextProps{
   style?: TextStyle|(TextStyle|undefined)[]|undefined;
   mode?: 'regular' | 'bold' | 'medium'; // Add more modes if needed
   colored?: boolean;
-  fontSize?:  'medium'|"large"|"extraLarge"|"extraExtraLarge"|"small"|"extraSmall";
+  fontSize?:  'medium'|"large"|"extraLarge"|"extraExtraLarge"|"small"|"extraSmall"|"extraExtraSmall";
 }
 
 

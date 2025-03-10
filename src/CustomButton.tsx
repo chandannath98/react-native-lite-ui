@@ -17,10 +17,10 @@ interface CustomButtonProps extends TouchableOpacityProps {
  loading?: boolean;
  disabled?: boolean;
  startComponent?: ReactNode;
- trailingComponent?: ReactNode;
- trailingICon?:string
- trailingIconSize?:number;
- trailingIconColor?:string
+ tailingComponent?: ReactNode;
+ tailingICon?:string|ReactNode
+ tailingIconSize?:number;
+ tailingIconColor?:string
 }
 
 
@@ -35,10 +35,10 @@ const CustomButton: FC<CustomButtonProps> = ({
  loading,
  color,
  startComponent,
- trailingComponent,
- trailingICon,
- trailingIconSize,
- trailingIconColor,
+ tailingComponent,
+ tailingICon,
+ tailingIconSize,
+ tailingIconColor,
  ...props
 }) => {
  const theme = useTheme();
@@ -74,9 +74,9 @@ const CustomButton: FC<CustomButtonProps> = ({
          >
            {title}
          </Text>
-         {trailingComponent && <View style={styles.componentContainer}>{trailingComponent}</View>}
-         {trailingICon &&
-                   <AntDesign name={trailingICon} size={trailingIconSize || 15} color={trailingIconColor ||( type === "contained" ? "white" : btnColor)} />
+         {tailingComponent && <View style={styles.componentContainer}>{tailingComponent}</View>}
+         {tailingICon && React.isValidElement(tailingICon)?tailingICon: (typeof tailingICon === 'string')?
+                   <AntDesign name={tailingICon} size={tailingIconSize || 15} color={tailingIconColor ||( type === "contained" ? "white" : btnColor)} />:<></>
         
          }
        </View>
