@@ -11,7 +11,7 @@ export {default as BottomSheet}  from './src/BottomSheet/BottomSheet';
 export {default as ToastDuration} from './src/Toast/ToastTypesAndValues/ToastDuration';
 export {default as Divider} from './src/Divider/Divider';
 export {default as Switch} from './src/Switch/Switch';
-export {default as Slider} from './src/Slider/Slider';
+// export {default as Slider} from './src/Slider/Slider';
 export {default as ScreenWrapper} from './src/ScreenWrapper'
 export {default as CustomDate} from './src/utils/CustomDate'
 export {default as AnimatedInput} from './src/Animated/AnimatedTextInput'
