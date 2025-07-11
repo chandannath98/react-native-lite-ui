@@ -78,6 +78,7 @@ export interface ThemeInitialValues {
 interface ThemeContextProps extends ThemeInitialValues {
   themeMode: ThemeMode;
   setThemeMode: (mode: ThemeMode) => void;
+  toggleTheme:()=>void
 }
 
 
@@ -130,6 +131,12 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, initialV
     applyColors(mode === 'system' ? (systemTheme === 'dark' ? 'dark' : 'light') : mode);
   };
 
+  const toggleTheme=()=>{
+
+    if(themeMode=="light"){ setTheme("dark") }
+    else {setTheme("light")}
+  }
+
   const applyColors = (mode: 'light' | 'dark') => {
     setColorMode(mode)
     setColors(initialValues.themesColors ? {...initialValues.colors, ...initialValues.themesColors[mode]} :  initialValues.colors);
@@ -140,7 +147,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({ children, initialV
   }, [themeMode, systemTheme]);
 
   return (
-    <ThemeContext.Provider value={{ colors, fontSizes, fonts, themeMode,colorMode, setThemeMode: setTheme ,}}>
+    <ThemeContext.Provider value={{ colors, fontSizes, fonts, themeMode,colorMode, setThemeMode: setTheme ,toggleTheme}}>
       <Toast />
       <Alert />
       <Dialog />

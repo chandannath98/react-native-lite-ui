@@ -11,19 +11,22 @@ interface CustomChipProps extends ViewProps {
   radius?: 'xl'|'l'|"m"|"s"
   color?:string;
   icon?:ReactNode;
-  gap?:number
+  gap?:number;
+  selected?:boolean;
+  isTouchable?:boolean
 }
 
-const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='xl',textStyle,color,icon,gap,...props }) => {
+const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='xl',textStyle,color,icon,gap,selected,isTouchable,...props }) => {
   const theme = useTheme();
   const btnColor=color ||theme.colors?.buttonColor||theme.colors?.primary
 
   return (
-    <View
+    <TouchableOpacity
+    disabled={!isTouchable}
     {...props}
       style={[styles.button, { 
         
-        backgroundColor: type=="contained"? btnColor:'none',
+        backgroundColor:( type=="contained" || selected)? btnColor:'none',
         borderWidth:1,
         borderColor: type=="outline"? btnColor:type=="contained"? btnColor:'none',
         borderRadius: radius=="xl"?50:radius=="l"?15:radius=="m"?10:radius=="s"?5:5,
@@ -37,13 +40,13 @@ const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='
     >
       <Text mode='medium' 
       
-      style={[{ color: type=="contained"?"white":btnColor },textStyle]}
+      style={[{ color: ( type=="contained" || selected)?"white":btnColor },textStyle]}
       
       
       >{title}</Text>
 
       {icon}
-    </View>
+    </TouchableOpacity>
   );
 };
 

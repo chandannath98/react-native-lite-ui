@@ -34,6 +34,12 @@ const CustomSwitch: React.FC<CustomSwitchProps> = ({
     }).start();
   }, [switchState]);
 
+
+  useEffect(() => {
+    setSwitchState(isOn)
+  }, [isOn])
+  
+
   const toggleSwitch = () => {
     const newState = !switchState;
     setSwitchState(newState);
