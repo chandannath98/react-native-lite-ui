@@ -3,7 +3,7 @@ import { TouchableOpacity,  StyleSheet, TextStyle, ViewStyle, TouchableOpacityPr
 import { useTheme } from './ThemeContext';
 import { Text } from '..';
 
-interface CustomChipProps extends ViewProps {
+interface CustomChipProps extends TouchableOpacityProps {
   title: string;
   style?: ViewStyle;
   textStyle?: TextStyle;
@@ -26,7 +26,7 @@ const CustomChip: FC<CustomChipProps> = ({ title,  style,type="outline",radius='
     {...props}
       style={[styles.button, { 
         
-        backgroundColor:( type=="contained" || selected)? btnColor:'none',
+        backgroundColor:( type=="contained" || selected)? btnColor:theme.colors.backgroundColor,
         borderWidth:1,
         borderColor: type=="outline"? btnColor:type=="contained"? btnColor:'none',
         borderRadius: radius=="xl"?50:radius=="l"?15:radius=="m"?10:radius=="s"?5:5,

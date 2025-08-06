@@ -31,7 +31,7 @@ const CustomText: FC<CustomTextProps> = ({children, fontSize='medium',style, mod
               ? theme.fonts?.medium
               : theme.fonts?.regular,
         },
-        !theme.fonts?.bold && {fontWeight:mode == 'bold'?"bold":mode =="medium"?"700":"400"},
+        !theme.fonts?.bold && {fontWeight:mode == 'bold'?"bold":mode =="medium"?"500":"400"},
         style,
       ]}
       

@@ -104,7 +104,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
    transform: [{ translateY }, { translateX }],
    opacity: isVisible ? 1 : 0,
    position: 'absolute',
-   [toastDetails?.position === 'bottom' ? 'bottom' : 'top']: 10, // Dynamically set position
+   [toastDetails?.position === 'bottom' ? 'bottom' : 'top']: 30, // Dynamically set position
    left: 20,
    right: 20,
    backgroundColor: 'white',
@@ -143,7 +143,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
          {toastDetails?.heading}
        </Text>
 }
-       <Text style={{ color: 'black' }}>{toastDetails?.message}</Text>
+       <Text  style={{ color: 'black' ,maxWidth:Dimensions.get("window").width *0.7}}>{toastDetails?.message}</Text>
      </View>
    </Animated.View>
  );
