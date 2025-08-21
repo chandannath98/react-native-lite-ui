@@ -29,7 +29,7 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
   const fontWeightStyle = fonts[fontWeight];
 
   return (
-    <View style={{gap:gapBetweenErrorMessage||2 ,}}>
+    <>
     <TextInput
       style={[
         styles.input,
@@ -48,8 +48,8 @@ const CustomTextInput: FC<CustomTextInputProps> = ({
       placeholderTextColor={'#d4d4d4'}
       {...props}
     />
-  {isError &&  <Text style={{color:errorColor ||"red"}} >{errorMessage || "Invalid"}</Text>}
-    </View>
+  {isError &&  <Text style={{color:errorColor ||"red",marginTop:gapBetweenErrorMessage as any ||2}} >{errorMessage || "Invalid"}</Text>}
+    </>
   );
 };
 

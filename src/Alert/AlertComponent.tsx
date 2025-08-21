@@ -96,7 +96,7 @@ const AlertModal = React.forwardRef((props, ref) => {
             
             mode='bold' fontSize='medium'
             
-            style={{ color: alertDetails?.type=="success"? 'green':alertDetails?.type=="error"?"red":alertDetails?.type=="warning"?"orange": theme.colors?.primary}}>{alertDetails?.heading}</Text>
+            style={{ color: alertDetails?.type=="success"? 'green':alertDetails?.type=="error"?"red":alertDetails?.type=="warning"?"orange": theme.colors?.primary,textAlign:"center"}}>{alertDetails?.heading}</Text>
 }
 
 

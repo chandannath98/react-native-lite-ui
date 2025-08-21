@@ -68,12 +68,15 @@ const CustomButton: FC<CustomButtonProps> = ({
      ) : (
        <View style={styles.contentContainer}>
          {startComponent && <View style={styles.componentContainer}>{startComponent}</View>}
+         {title &&
          <Text
            mode='medium'
            style={[{ color: type === "contained" ? "white" : btnColor }, textStyle]}
          >
+         
            {title}
          </Text>
+}
          {tailingComponent && <View style={styles.componentContainer}>{tailingComponent}</View>}
          {tailingICon && React.isValidElement(tailingICon)?tailingICon: (typeof tailingICon === 'string')?
                    <AntDesign name={tailingICon} size={tailingIconSize || 15} color={tailingIconColor ||( type === "contained" ? "white" : btnColor)} />:<></>
