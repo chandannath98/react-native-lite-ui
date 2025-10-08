@@ -63,6 +63,34 @@ const AlertModal = React.forwardRef((props, ref) => {
 
 
   const buttonColor = alertDetails?.type == "success" ? '#3bbc5e' : alertDetails?.type == "error" ? "#fb2c56" : alertDetails?.type == "warning" ? "orange" : theme.colors?.primary;
+
+
+  const getAnimationSource=()=>{
+    let animationSource;
+
+    switch (alertDetails?.type) {
+      case 'success':
+        animationSource = require('../../LottieJsons/Success.json');
+        break;
+      case 'error':
+        animationSource = require('../../LottieJsons/error.json');
+        break;
+      case 'info':
+        animationSource = require('../../LottieJsons/Info.json');
+        break;
+      default:
+        animationSource = require('../../LottieJsons/Warning.json');
+        break;
+    }
+
+    return animationSource
+  }
+
+
+
+
+
+
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -83,20 +111,18 @@ const AlertModal = React.forwardRef((props, ref) => {
             /> 
             <View
             
-            // style={{position: 'absolute', top: -25}}
+            style={{marginBottom:-15}}
             
             >
               
-              {alertDetails?.type == 'success' ? (
-                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Success.json')} autoPlay loop={false}/>
-                // <AntDesign name="checkcircle" size={60} color={'green'} />
-              ) : alertDetails?.type == 'error' ? (
-                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/error.json')} autoPlay loop={false}/>
-              ) : alertDetails?.type == 'info' ? (
-                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Info.json')} autoPlay loop={false}/>
-              ) : (
-                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Warning.json')} autoPlay loop={false}/>
-              )}
+              <LottieView
+              style={{ width: 120, height: 120, }}
+              source={getAnimationSource()}
+              autoPlay
+             resizeMode='cover' 
+             
+              loop={false}
+              />
             </View>
 
             {alertDetails?.heading &&
@@ -120,7 +146,7 @@ const AlertModal = React.forwardRef((props, ref) => {
 
                 <Button
                 color={buttonColor}
-                radius='xl'
+                radius='m'
                 title={alertDetails?.confirmButtonText! || 'OK'}
                 type='contained'
                 onPress={()=>{
@@ -136,7 +162,7 @@ const AlertModal = React.forwardRef((props, ref) => {
                 />
                 {alertDetails?.cancelButtonVisible&&
                 <Button
-                radius='xl'
+                radius='m'
                   color={buttonColor}
                 title='Cancel'
                 type='outline'
