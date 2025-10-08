@@ -9,7 +9,7 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 interface CustomButtonProps extends TouchableOpacityProps {
  title: string;
  onPress: () => void;
- style?: ViewStyle;
+ style?: ViewStyle|ViewStyle[];
  textStyle?: TextStyle;
  type?: 'contained' | 'outline' | 'text'; // Add more types if needed
  radius?: 'xl' | 'l' | 'm' | 's';

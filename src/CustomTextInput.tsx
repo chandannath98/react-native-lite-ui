@@ -5,7 +5,7 @@ import useFont from './hooks/useFont';
 import { Text } from '..';
 
 interface CustomTextInputProps extends TextInputProps {
-  style?: TextStyle;
+  style?: TextStyle|(TextStyle|undefined)[]|undefined;
   fontWeight?: 'medium' | 'bold' | 'regular';
   disabled?: boolean;
   isError?:boolean;

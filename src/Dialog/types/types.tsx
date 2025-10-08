@@ -6,4 +6,5 @@ export type DialogProps ={
     onAccept? :()=>void,
     onCancel? :()=>void,
     closeOnBackPress?:boolean
+    confirmButtonText?:string
 }

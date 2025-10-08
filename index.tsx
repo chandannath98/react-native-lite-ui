@@ -2,7 +2,8 @@ export { ThemeProvider, useTheme } from './src/ThemeContext';
 export { default as Text } from './src/CustomText';
 export { default as Button } from './src/CustomButton';
 export { default as TextInput } from './src/CustomTextInput';
-export { default as Chip } from './src/CustomChip';
+export { default as Chip } from './src/Chip/CustomChip';
+export { default as ChipGroup } from './src/Chip/ChipGroup';
 // export { default as useApi } from './src/hooks/useApiHook';
 export {default as Toast}  from './src/Toast/Toast'
 export {default as Alert}  from './src/Alert/Alert';

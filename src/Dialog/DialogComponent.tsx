@@ -23,6 +23,7 @@ const DialogModal = React.forwardRef((props, ref) => {
     onAccept: () => {},
     onCancel: () => {},
     closeOnBackPress: true,
+    confirmButtonText:"OK"
   });
 
   const theme = useTheme();
@@ -68,7 +69,7 @@ const DialogModal = React.forwardRef((props, ref) => {
               backgroundColor:
                 theme.colorMode == 'dark'
                   ? 'rgba(210, 210, 210, 0.3)'
-                  : 'rgba( 0, 0, 0, 0.08)',
+                  : 'rgba(0, 0, 0, 0.26)',
             },
           ]}>
           <View
@@ -86,7 +87,7 @@ const DialogModal = React.forwardRef((props, ref) => {
             // style={{position: 'absolute', top: -25}}
             ></View>
               {alertDetails?.heading &&
-            <Text mode="bold" fontSize='medium'>
+            <Text mode="bold" fontSize='large'>
               {alertDetails?.heading}
             </Text>
 }
@@ -94,14 +95,14 @@ const DialogModal = React.forwardRef((props, ref) => {
             <Text
               mode="regular"
               fontSize="medium"
-              style={{color: theme.colors?.textColor}}>
+              style={{color: '#8a858e'}}>
               {alertDetails?.message}
             </Text>
 
             <View style={{flexDirection: 'row', gap: 10}}>
               <Button
                 radius="xl"
-                title="OK"
+                title={alertDetails?.confirmButtonText || 'OK'}
                 type="text"
                 onPress={()=>{
                   
@@ -143,7 +144,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba( , 0, 0, 0.08)',
+    backgroundColor: 'red',
     // marginTop: 22,
   },
   modalView: {
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5,
+    // elevation: 5,
     width: Dimensions.get('window').width * 0.8,
     // height: Dimensions.get('window').height * 0.25,
   },

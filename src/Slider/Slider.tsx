@@ -102,7 +102,7 @@ function Slider({initialvalue, animationEnabled, onProgress}) {
         <Animated.View style={[styles.moveRightBar, _style]} />
         <Animated.View style={[styles.dot, _style]}>
           <View pointerEvents="none">
-            <AnimatedTextInput
+            <Animated.TextInput
               style={styles.txt}
               defaultValue={initialvalue.toString()}
               editable={false}

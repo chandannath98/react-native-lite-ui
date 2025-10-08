@@ -7,4 +7,5 @@ export type AlertProps ={
     onAccept? :()=>void,
     onCancel? :()=>void,
     closeOnBackPress?:boolean
+    confirmButtonText?:string
 }

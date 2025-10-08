@@ -143,7 +143,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
          {toastDetails?.heading}
        </Text>
 }
-       <Text  style={{ color: 'black' ,maxWidth:Dimensions.get("window").width *0.7}}>{toastDetails?.message}</Text>
+       <Text  style={{ color: '#8a858e' ,maxWidth:Dimensions.get("window").width *0.7}}>{toastDetails?.message}</Text>
      </View>
    </Animated.View>
  );

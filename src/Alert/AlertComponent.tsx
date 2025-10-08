@@ -26,6 +26,7 @@ const AlertModal = React.forwardRef((props, ref) => {
     onAccept: ()=>{},
     onCancel: ()=>{},
     closeOnBackPress:true,
+    confirmButtonText:'OK'
   });
   
   const theme = useTheme();
@@ -61,6 +62,7 @@ const AlertModal = React.forwardRef((props, ref) => {
 
 
 
+  const buttonColor = alertDetails?.type == "success" ? '#3bbc5e' : alertDetails?.type == "error" ? "#fb2c56" : alertDetails?.type == "warning" ? "orange" : theme.colors?.primary;
   return (
     <View style={styles.centeredView}>
       <Modal
@@ -74,9 +76,9 @@ const AlertModal = React.forwardRef((props, ref) => {
           
           <View style={styles.modalView}>
           <View
-            style={{backgroundColor:alertDetails?.type=="success"? '#3bbc5e':alertDetails?.type=="error"?"#fb2c56":alertDetails?.type=="warning"?"orange": theme.colors?.primary,height:7,width:Dimensions.get('window').width * 0.687,
-            borderTopLeftRadius:15,
-            borderTopRightRadius:15,
+            style={{backgroundColor:alertDetails?.type=="success"? '#3bbc5e':alertDetails?.type=="error"?"#fb2c56":alertDetails?.type=="warning"?"orange": theme.colors?.primary,height:5,width:Dimensions.get('window').width * 0.687,
+            // borderTopLeftRadius:15,
+            // borderTopRightRadius:15,
             }}
             /> 
             <View
@@ -86,21 +88,21 @@ const AlertModal = React.forwardRef((props, ref) => {
             >
               
               {alertDetails?.type == 'success' ? (
-                <LottieView style={{width:90,height:90}} source={require('../../LottieJsons/Success.json')} autoPlay loop={false}/>
+                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Success.json')} autoPlay loop={false}/>
                 // <AntDesign name="checkcircle" size={60} color={'green'} />
               ) : alertDetails?.type == 'error' ? (
-                <LottieView style={{width:100,height:100}} source={require('../../LottieJsons/error.json')} autoPlay loop={false}/>
+                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/error.json')} autoPlay loop={false}/>
               ) : alertDetails?.type == 'info' ? (
-                <LottieView style={{width:90,height:90}} source={require('../../LottieJsons/Info.json')} autoPlay loop={false}/>
+                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Info.json')} autoPlay loop={false}/>
               ) : (
-                <LottieView style={{width:90,height:90}} source={require('../../LottieJsons/Warning.json')} autoPlay loop={false}/>
+                <LottieView style={{width:120,height:120}} source={require('../../LottieJsons/Warning.json')} autoPlay loop={false}/>
               )}
             </View>
 
             {alertDetails?.heading &&
             <Text
             
-            mode='bold' fontSize='medium'
+            mode='bold' fontSize='large'
             
             style={{ color: alertDetails?.type=="success"? '#3bbc5e':alertDetails?.type=="error"?"#fb2c56":alertDetails?.type=="warning"?"orange": theme.colors?.primary,textAlign:"center"}}>{alertDetails?.heading}</Text>
 }
@@ -111,15 +113,15 @@ const AlertModal = React.forwardRef((props, ref) => {
             
             mode='regular' fontSize='medium'
             
-            style={{ color: 'black'}}>{alertDetails?.message}</Text>
+            style={{ color: '#8a858e'}}>{alertDetails?.message}</Text>
 
             <View 
             style={{flexDirection:"row",gap:20}}>
 
                 <Button
-                color={alertDetails?.type=="success"? '#3bbc5e':alertDetails?.type=="error"?"#fb2c56":alertDetails?.type=="warning"?"orange": theme.colors?.primary}
+                color={buttonColor}
                 radius='xl'
-                title='OK'
+                title={alertDetails?.confirmButtonText! || 'OK'}
                 type='contained'
                 onPress={()=>{
                   
@@ -135,7 +137,7 @@ const AlertModal = React.forwardRef((props, ref) => {
                 {alertDetails?.cancelButtonVisible&&
                 <Button
                 radius='xl'
-
+                  color={buttonColor}
                 title='Cancel'
                 type='outline'
                 onPress={()=>{
@@ -171,7 +173,7 @@ const styles = StyleSheet.create({
     gap:15,
     margin: 20,
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 15,
     padding: 20,
     paddingTop:0,
     alignItems: 'center',
