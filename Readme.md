@@ -5,10 +5,7 @@ This package provides customizable and themable React Native components all sync
 ## Installation
 
 ```bash
-npm install react-native-lite-ui
-npm install @react-native-async-storage/async-storage
-npm install react-native-vector-icons
-npm install lottie-react-native
+npm install react-native-lite-ui @react-native-async-storage/async-storage react-native-vector-icons lottie-react-native
 ```
 
 ## Usage
@@ -25,61 +22,45 @@ import { ThemeProvider,ThemeInitialValues } from 'react-native-lite-ui';
 
 const App = () => {
   const theme:ThemeInitialValues = {
-   secondary2: "#018786",
-    secondary3: "#03dac4",
-    backgroundColor2: "#f5f5f5",
-    backgroundColor3: "#e0e0e0",
-    disabledColor: "#bdbdbd",
-    errorColor: "#cf6679",
-  },
-  themesColors: {
-    light: {
-      primary: "#6200ea",
-      secondary: "#03dac6",
-      backgroundColor: "#ffffff",
-      buttonColor: "#6200ea",
-      textColor: "#000000",
-      disabledColor: "#bdbdbd",
-      primary2: "#3700b3",
-      primary3: "#bb86fc",
-      secondary2: "#018786",
-      secondary3: "#03dac4",
-      backgroundColor2: "#f5f5f5",
-      backgroundColor3: "#e0e0e0",
-      errorColor: "#cf6679",
+      colors:{
+        primary: '#03DAC6',
+        backgroundColor: '#FFFFFF',
+        textColor: '#000',
+        buttonColor: '#03DAC6',
+        disabledColor: '#A9A9A9',
+        // buttonColor: "yellow"
+        
+    },themesColors: {
+      light: {
+        primary: '#03DAC6',
+        backgroundColor: '#FFFFFF',
+        textColor: '#000',
+        buttonColor: '#03DAC6',
+        disabledColor: '#A9A9A9',
+      },
+      dark: {
+        primary: '#03DAC6',
+        backgroundColor: '#121212',
+        textColor: '#FFFFFF',
+        buttonColor: '#03DAC6',
+        disabledColor: '#444444',
+      },
     },
-    dark: {
-      primary: "#bb86fc",
-      secondary: "#03dac6",
-      backgroundColor: "#121212",
-      buttonColor: "#bb86fc",
-      textColor: "#ffffff",
-      disabledColor: "#757575",
-      primary2: "#3700b3",
-      primary3: "#6200ea",
-      secondary2: "#018786",
-      secondary3: "#03dac4",
-      backgroundColor2: "#1e1e1e",
-      backgroundColor3: "#2a2a2a",
-      errorColor: "#cf6679",
+    fontSizes : {
+      extraSmall: 10,   // Very small text (e.g., captions, helper text)
+      small: 12,        // Small text (e.g., secondary labels)
+      medium: 14,       // Default text (e.g., body text)
+      large: 16,        // Slightly larger text (e.g., buttons, headlines)
+      extraLarge: 20,   // Important headings or subheadings
+      extraExtraLarge: 24, // Main headings or prominent text
     },
-  },
-  fontSizes: {
-    small: 12,
-    medium: 14,
-    large: 16,
-    extraLarge: 18,
-    extraExtraLarge: 22,
-    extraSmall: 10,
-    extraExtraSmall: 8,
-  },
-  fonts: {
-    regular: "Roboto-Regular",
-    bold: "Roboto-Bold",
-    medium: "Roboto-Medium",
-  },
-  colorMode: "light",
-  };
+    fonts:{
+        regular: 'string',
+        bold: 'string',
+        medium: 'string',
+    },
+    colorMode:'light'
+    };
 
   return (
     <ThemeProvider initialValues={theme}>
@@ -149,62 +130,46 @@ The `ThemeProvider` allows you to define themes for light and dark modes as well
 #### Example
 
 ```tsx
-const theme = {
-   secondary2: "#018786",
-    secondary3: "#03dac4",
-    backgroundColor2: "#f5f5f5",
-    backgroundColor3: "#e0e0e0",
-    disabledColor: "#bdbdbd",
-    errorColor: "#cf6679",
-  },
-  themesColors: {
-    light: {
-      primary: "#6200ea",
-      secondary: "#03dac6",
-      backgroundColor: "#ffffff",
-      buttonColor: "#6200ea",
-      textColor: "#000000",
-      disabledColor: "#bdbdbd",
-      primary2: "#3700b3",
-      primary3: "#bb86fc",
-      secondary2: "#018786",
-      secondary3: "#03dac4",
-      backgroundColor2: "#f5f5f5",
-      backgroundColor3: "#e0e0e0",
-      errorColor: "#cf6679",
+ const theme:ThemeInitialValues = {
+      colors:{
+        primary: '#03DAC6',
+        backgroundColor: '#FFFFFF',
+        textColor: '#000',
+        buttonColor: '#03DAC6',
+        disabledColor: '#A9A9A9',
+        // buttonColor: "yellow"
+        
+    },themesColors: {
+      light: {
+        primary: '#03DAC6',
+        backgroundColor: '#FFFFFF',
+        textColor: '#000',
+        buttonColor: '#03DAC6',
+        disabledColor: '#A9A9A9',
+      },
+      dark: {
+        primary: '#03DAC6',
+        backgroundColor: '#121212',
+        textColor: '#FFFFFF',
+        buttonColor: '#03DAC6',
+        disabledColor: '#444444',
+      },
     },
-    dark: {
-      primary: "#bb86fc",
-      secondary: "#03dac6",
-      backgroundColor: "#121212",
-      buttonColor: "#bb86fc",
-      textColor: "#ffffff",
-      disabledColor: "#757575",
-      primary2: "#3700b3",
-      primary3: "#6200ea",
-      secondary2: "#018786",
-      secondary3: "#03dac4",
-      backgroundColor2: "#1e1e1e",
-      backgroundColor3: "#2a2a2a",
-      errorColor: "#cf6679",
+    fontSizes : {
+      extraSmall: 10,   // Very small text (e.g., captions, helper text)
+      small: 12,        // Small text (e.g., secondary labels)
+      medium: 14,       // Default text (e.g., body text)
+      large: 16,        // Slightly larger text (e.g., buttons, headlines)
+      extraLarge: 20,   // Important headings or subheadings
+      extraExtraLarge: 24, // Main headings or prominent text
     },
-  },
-  fontSizes: {
-    small: 12,
-    medium: 14,
-    large: 16,
-    extraLarge: 18,
-    extraExtraLarge: 22,
-    extraSmall: 10,
-    extraExtraSmall: 8,
-  },
-  fonts: {
-    regular: "Roboto-Regular",
-    bold: "Roboto-Bold",
-    medium: "Roboto-Medium",
-  },
-  colorMode: "light",
-};
+    fonts:{
+        regular: 'string',
+        bold: 'string',
+        medium: 'string',
+    },
+    colorMode:'light'
+    };
 ```
 
 ### Button
@@ -394,6 +359,13 @@ import {TextInput} from 'react-native-lite-ui';
 
 <TextInput placeholder="Type here" fontWeight="bold" />;
 ```
+
+
+
+### Selector
+
+RNPopoverSelector with theme support.
+visit https://www.npmjs.com/package/rn-popover-selector for documentation
 
 ## License
 
