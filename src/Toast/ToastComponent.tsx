@@ -100,6 +100,7 @@ const ToastComponent = React.forwardRef((props, ref) => {
  return (
    <Animated.View
  {...panResponder.panHandlers}
+ pointerEvents={isVisible ? 'auto' : 'none'}
  style={{
    transform: [{ translateY }, { translateX }],
    opacity: isVisible ? 1 : 0,
